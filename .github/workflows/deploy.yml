@@ -1,0 +1,58 @@
+name: Deploy to VPS (Opt Docker)
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Récupération du code
+        uses: actions/checkout@v4
+
+      - name: 🚚 Copie du code source (Front)
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "."
+          target: "/opt/docker/vps-1-sites/kwizzy-front"
+          rm: true
+
+      - name: 🚀 Mise en place Orchestrator & Build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Définition de la racine de travail EXACTE
+            WORK_DIR="/opt/docker/vps-1-sites"
+            
+            # Correction des noms de dossiers (sans tiret)
+            ORCHESTRATOR="$WORK_DIR/funkyduck-orchestrator"
+            FRONT="$WORK_DIR/kwizzy-front"
+
+            # 1. Création de la structure (si pas déjà là)
+            # Note : Ton user SSH doit avoir les droits d'écriture dans /opt/docker/vps-1-sites
+            mkdir -p $ORCHESTRATOR
+            
+            # 2. Copie du docker-compose vers l'orchestrateur
+            cp $FRONT/docker-compose.yml $ORCHESTRATOR/docker-compose.yml
+            
+            # 3. On se déplace dans le dossier Orchestrator
+            cd $ORCHESTRATOR
+
+            # 4. Dossier de données
+            mkdir -p kwizzy-data
+
+            # 5. Lancement
+            docker compose up -d --build --remove-orphans
+            
+            # Nettoyage
+            docker image prune -f
