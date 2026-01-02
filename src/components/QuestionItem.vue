@@ -58,7 +58,7 @@ function nextQuestion() {
 
     <div v-else-if="typeof answer === 'number'">
       <input type="number" :disabled="hasAnswered" v-model.number="userAnswer" />
-      <button class="button is-info" @click="setAnswer(userAnswer)" :disabled="hasAnswered">
+      <button class="button is-info" @click="setAnswer(userAnswer!)" :disabled="hasAnswered">
         Valider
       </button>
     </div>
