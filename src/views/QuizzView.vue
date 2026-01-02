@@ -325,7 +325,7 @@ const quizz = {
       <QuestionItem
         :question="quizz.questions[currentQuestion]?.question"
         :answer="quizz.questions[currentQuestion]?.answer"
-        :choices="quizz.questions[currentQuestion]?.choices"
+        :choices="quizz.questions[currentQuestion]?.choices || []"
         :userAnswer="null"
         @answered="updateCounter"
       />

@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { type Ref, ref, watch } from 'vue'
+import { type Ref, ref, watch, type PropType } from 'vue'
 import ResponseItem from '@/components/ResponseItem.vue'
 
 const props = defineProps({
   question: String,
-  answer: String || Number || Boolean || null,
-  choices: Array,
+  answer: [String, Number, Boolean] as PropType<string | number | boolean>,
+  choices: {
+    type: Array as PropType<(string | number | boolean)[]>,
+    default: () => [],
+  },
 })
 
 const emits = defineEmits({
