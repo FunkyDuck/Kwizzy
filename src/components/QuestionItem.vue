@@ -32,7 +32,7 @@ function setAnswer(c: string | number | boolean) {
 }
 
 function nextQuestion() {
-  emits('answered', userAnswer.value === props.answer)
+  emits('answered', userAnswer.value! === props.answer)
 }
 </script>
 
