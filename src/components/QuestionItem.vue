@@ -15,13 +15,13 @@ const emits = defineEmits<{
   (e: 'answered', value: boolean): void
 }>()
 
-const userAnswer = ref<string | number | boolean | null>(null)
+const userAnswer = ref<string | number | boolean | undefined>(undefined)
 const hasAnswered: Ref<boolean> = ref(false)
 
 watch(
   () => props.question,
   () => {
-    userAnswer.value = null
+    userAnswer.value = undefined
     hasAnswered.value = false
   },
 )

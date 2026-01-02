@@ -326,7 +326,7 @@ const quizz = {
         :question="quizz.questions[currentQuestion]?.question"
         :answer="quizz.questions[currentQuestion]?.answer"
         :choices="quizz.questions[currentQuestion]?.choices || []"
-        :userAnswer="null"
+        :userAnswer="undefined"
         @answered="updateCounter"
       />
     </div>
