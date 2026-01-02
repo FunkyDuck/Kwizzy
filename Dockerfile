@@ -26,6 +26,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # On build le projet Nuxt
+RUN pnpm install
 RUN pnpm run build
 
 # -----------------------------------------
@@ -39,7 +40,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nuxtjs
 
 # On copie uniquement le dossier de sortie (.output) généré par le build
-COPY --from=builder --chown=nuxtjs:nodejs /app/.output /app/.output
+COPY --from=builder --chown=nuxtjs:nodejs /app/dist /app/dist
 
 USER nuxtjs
 
