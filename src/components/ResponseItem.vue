@@ -1,6 +1,6 @@
 <script setup lang="ts">
   const props = defineProps({
-    userAnswer: String,
+    userAnswer: String || Number || Boolean || null,
     answer: String,
   })
 </script>

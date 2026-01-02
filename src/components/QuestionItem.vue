@@ -4,7 +4,7 @@ import ResponseItem from '@/components/ResponseItem.vue'
 
 const props = defineProps({
   question: String,
-  answer: String || Number || Boolean,
+  answer: String || Number || Boolean || null,
   choices: Array,
 })
 
