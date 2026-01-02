@@ -26,7 +26,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # On build le projet Nuxt
-RUN pnpm install
 RUN pnpm run build
 
 # -----------------------------------------
