@@ -4,7 +4,7 @@ import ResponseItem from '@/components/ResponseItem.vue'
 
 const props = defineProps({
   question: String,
-  answer: [String, Number, Boolean] as PropType<string | number | boolean>,
+  answer: [String, Number, Boolean, undefined] as PropType<string | number | boolean | undefined>,
   choices: {
     type: Array as PropType<(string | number | boolean)[]>,
     default: () => [],
