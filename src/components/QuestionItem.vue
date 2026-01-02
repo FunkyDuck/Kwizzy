@@ -11,9 +11,9 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits({
-  answered: Boolean,
-})
+const emits = defineEmits<{
+  (e: 'answered', value: boolean): void
+}>()
 
 const userAnswer = ref<string | number | boolean | null>(null)
 const hasAnswered: Ref<boolean> = ref(false)
@@ -26,7 +26,7 @@ watch(
   },
 )
 
-function setAnswer(c: string | number | boolean | null) {
+function setAnswer(c: string | number | boolean) {
   userAnswer.value = c
   hasAnswered.value = true
 }
